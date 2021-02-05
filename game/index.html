@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Monster Slayer</h1>
+    </header>
+    <div id="game">
+      <section id="monster" class="container">
+        <h2>Monster Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" :style="{width: width_healthbarMonster + '%'}">{{ counterMonsterHelth }} %</div>
+        </div>
+      </section>
+      <section id="player" class="container">
+        <h2>Your Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" :style="{width: width_healthbarPlayer + '%'}">{{ counterPlayerHelth }} %</div>
+        </div>
+      </section>
+      <section id="controls" v-show="counterMonsterHelth !== 0 && counterPlayerHelth !== 0">
+        <button @click="attack" :disabled="counterMonsterHelth === 0">ATTACK</button>
+        <button @click="specialAttack" :disabled="disabled == true">SPECIAL ATTACK</button>
+        <button @click="heal" :disabled="counterPlayerHelth === 100">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
+      </section>
+      <section id="controls" v-show="counterMonsterHelth === 0 || counterPlayerHelth === 0">
+        <p>{{ resultOfGame }}</p>
+        <button @click="startNewGame">Start new game</button>
+      </section>
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul>
+          <li v-for="action in actionsList">{{ action }}</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>
